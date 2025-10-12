@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyFlix - Home</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+
+  <header>
+    <div class="logo">MyFlix</div>
+
+  
+    <div id="searchSection">
+    <input type="text" id="searchBar" placeholder="Search..." onkeyup="searchMovies()">
+    </div>
+
+    <nav>
+      <a href="home.html" class="active">Home</a>
+      <a href="shows.html">Shows</a>
+      <a href="movies.html">Movies</a>
+      <a href="contact.html">Contact</a>
+      <a href="mylist.html">My List</a>
+    </nav>
+  </header>
+
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Unlimited Movies & Shows</h1>
+      <p>Watch anywhere. Anytime. Only on <strong>MyFlix</strong>.</p>
+      <a href="Home.html" class="btn">Explore now</a>
+    </div>
+  </section>
+
+  
+  <section class="categories">
+    <h2>Browse by Category</h2>
+    <div class="category-list">
+      <div class="category">Action</div>
+      <div class="category">Comedy</div>
+      <div class="category">Drama</div>
+      <div class="category">Fantasy</div>
+      <div class="category">Horror</div>
+      <div class="category">Thriller</div>
+      <div class="category">Crime</div>
+      <div class="category">Mystory</div>
+    </div>
+  </section>
+
+
+  <footer>
+    <p>&copy; 2025 MyFlix. All rights reserved.</p>
+  </footer>
+
+  <script>
+
+  function goToSearch() {
+  const query = document.getElementById("searchBar").value.trim().toLowerCase();
+  if (query) {
+    localStorage.setItem("searchQuery", query);
+    window.location.href = "home.html";
+  }
+}
+
+  
+  
+ 
+  const categories = document.querySelectorAll('.category');
+
+  categories.forEach(cat => {
+    cat.addEventListener('click', () => {
+      const genre = cat.getAttribute('data-genre');
+      localStorage.setItem('selectedGenre', genre);
+      window.location.href = 'home.html';
+    });
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyFlix</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+  <header>
+    <div>
+    <a href="Index.html" class="logo">MyFlix</a>
+    </div>
+   
+    <div id="searchSection">
+    <input type="text" id="searchBar" placeholder="Search..." onkeyup="searchMovies()">
+    </div>
+
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="shows.html">Shows</a>
+      <a href="movies.html">Movies</a>
+      <a href="contact.html">Contact</a>
+      <a href="myList.html">My List</a>
+    </nav>
+  </header>
+
+ 
+   <section class="hero-section">
+  <div class="hero">
+     <h2>Recommended movie of the day</h2>
+        <button id="lookNowBtn">Look now</button>
+ 
+  </div>
+</section>
+ <div class="modal" id="movieModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <iframe id="modalTrailer" src="" frameborder="0" allowfullscreen></iframe>
+      <button class="btn" onclick="addToList()">+ Add to My List</button>
+    </div>
+  </div>
+
+
+
+<div style="text-align:center; margin:20px;">
+  <label for="genreSelect">Select the genre:</label>
+  <select id="genreSelect" onchange="filterByGenre()" style="padding:8px;">
+    <option value="all">All</option>
+    <option value="action">Action</option>
+    <option value="comedy">Comedy</option>
+    <option value="horror">Horror</option>
+    <option value="drama">Drama</option>
+    <option value="fantasy">Fantasy</option>
+    <option value="crime">Crime</option>
+    <option value="mystory">Mystory</option>
+    <option value="thriller">Thriller</option>
+  </select>
+</div>
+ 
+
+  <section>
+  <h2>Popular films</h2>
+     <span class="arrow left" onclick="scrollRow('row1',-1)">❮</span>
+    <span class="arrow right" onclick="scrollRow('row1',1)">❯</span>
+    <div class="row" id="row1">
+      
+      
+
+      <div class="movie" style="background-image:url('https://www.hollywoodreporter.com/wp-content/uploads/2025/08/KPOP_mktg005_8KHigh_Lyrs_lm_v15-H-2025.jpg?w=1296')"
+      data-title="KPop Demon Hunters (2025)| An animated action-fantasy film about a K-pop girl group who secretly fight demons while maintaining their glamorous pop star lives. Stylish, fun, and packed with supernatural action."
+      data-genre="Action" data-trailer="https://www.hollywoodreporter.com/wp-content/uploads/2025/08/KPOP_mktg005_8KHigh_Lyrs_lm_v15-H-2025.jpg?w=1296" ><span>KPop Demon Hunters (2025)</span></div>
+      
+      <div class="movie" style="background-image: url('https://live-production.wcms.abc-cdn.net.au/d999fb3364fe37c906d00ac6e24dabb7?impolicy=wcms_crop_resize&cropH=1125&cropW=2000&xPos=0&yPos=0&width=862&height=485');"
+      data-title="Fast & Furious| A high-octane action franchise centered around fast cars, daring heists, and a close-knit team that treats each other like family. Known for its explosive stunts and adrenaline-filled races." 
+      data-genre="Action" data-trailer="https://live-production.wcms.abc-cdn.net.au/d999fb3364fe37c906d00ac6e24dabb7?impolicy=wcms_crop_resize&cropH=1125&cropW=2000&xPos=0&yPos=0&width=862&height=485"><span>Fast & Furious</span></div>
+
+      <div class="movie" style="background-image:url('https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABcRVnlL4lhE9egHfxq6CSHr-jokqB5gasCzmqta3oisnbe87NfZ8udAld_xdkvrfiEhk1dGQ1yduRV0Om-DoUNv6qkcl4K1Wd8mN.jpg?r=afe')"
+      data-title="Red Notice (2021)|Genre: Action / Comedy / Crime
+      An FBI profiler teams up with a notorious art thief to catch an even more elusive criminal. Stars Dwayne Johnson, Ryan Reynolds, and Gal Gadot." 
+      data-genre="Action, Comedy, Crime" data-trailer="https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABcRVnlL4lhE9egHfxq6CSHr-jokqB5gasCzmqta3oisnbe87NfZ8udAld_xdkvrfiEhk1dGQ1yduRV0Om-DoUNv6qkcl4K1Wd8mN.jpg?r=afe"><span>Red Notice (2021)</span></div>
+      
+       <div class="movie" style="background-image:url('https://resizing.flixster.com/_wLjLskr8hkNBaN0dRJDmNUfsCM=/620x336/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13499680_v_h9_ak.jpg')"
+       data-title="Jumanji| A group of people get sucked into a magical game that turns into a wild adventure. They must survive its dangerous challenges to escape. A mix of action, comedy, and fantasy." 
+       data-genre="comedy" data-trailer="https://resizing.flixster.com/_wLjLskr8hkNBaN0dRJDmNUfsCM=/620x336/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13499680_v_h9_ak.jpg"><span>Jumanji</span></div>
+
+      <div class="movie" style="background-image:url('https://static0.colliderimages.com/wordpress/wp-content/uploads/2024/11/carry-on-movie-poster.jpg?w=1200&h=900&fit=crop')"
+      data-title="Carry‑On (2024)|Genre: Action / Thriller
+      A TSA agent at an airport is blackmailed into allowing a dangerous package onto a Christmas Day flight. As the stakes rise mid-air, the agent must figure out how to stop a potential catastrophe.
+      Stars: Taron Egerton, Jason Bateman
+      Themes: Duty vs. morality, pressure, in-flight suspense" data-genre="Action, Thriller" data-trailer="https://static0.colliderimages.com/wordpress/wp-content/uploads/2024/11/carry-on-movie-poster.jpg?w=1200&h=900&fit=crop"><span>Carry‑On (2024)</span></div>
+      
+       <div class="movie" style="background-image:url('https://m.media-amazon.com/images/I/71XRiVMPrDL._UF1000,1000_QL80_.jpg')"
+       data-title="Conjuring | A supernatural horror film based on real-life paranormal investigators Ed and Lorraine Warren. They help a family haunted by a dark presence in their farmhouse." 
+       data-genre="horror" data-trailer="https://m.media-amazon.com/images/I/71XRiVMPrDL._UF1000,1000_QL80_.jpg"><span>Conjuring</span></div>
+
+      <div class="movie" style="background-image:url('https://www.broadcastprome.com/wp-content/uploads/2021/12/dont-look-up.jpg')" 
+      data-title="Don’t Look Up (2021)|Genre: Satire / Comedy / Drama
+      Two scientists try to warn the world about a comet on a collision course with Earth, but no one takes them seriously. A dark comedy starring Leonardo DiCaprio and Jennifer Lawrence." 
+      data-genre="Comedy, Drama" data-trailer="https://www.broadcastprome.com/wp-content/uploads/2021/12/dont-look-up.jpg"><span>Don’t Look Up (2021)</span></div>
+      
+      <div class="movie" style="background-image:url('https://i.redd.it/zgrynrgjihia1.jpg')"
+      data-title="Titanic | A romantic drama set aboard the ill-fated RMS Titanic. It tells the love story of Jack and Rose, two passengers from different social classes, during the ship’s tragic sinking in 1912." 
+      data-genre="drama" data-trailer="https://i.redd.it/zgrynrgjihia1.jpg"><span>Titanic</span></div>
+
+      <div class="movie" style="background-image:url('https://image.tmdb.org/t/p/original/6sYUeIaAmMPOXtek0lKWxjRVN94.jpg')" 
+      data-title="Bird Box (2018)|Genre: Horror / Sci-Fi / Thriller
+      A mysterious force causes people to commit suicide if they see it. Survivors must navigate the world blindfolded. A mother desperately tries to get her children to safety in a tense, post-apocalyptic journey.
+      Stars: Sandra Bullock, Trevante Rhodes, John Malkovich
+      Themes: Survival, motherhood, unseen terror" data-genre="Horror, Thriller" data-trailer="https://image.tmdb.org/t/p/original/6sYUeIaAmMPOXtek0lKWxjRVN94.jpg"><span>Bird Box (2018)</span></div>
+      
+      <div class="movie" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTELpB5N_qoA2faXWogGnJdZEQsLijEieX9_g&s');"
+      data-title="Deadpool | A dark comedy superhero film about Wade Wilson, a former soldier turned mercenary with healing powers and a sharp, sarcastic mouth. Known for breaking the fourth wall and violent humor." 
+      data-genre="action" data-trailer="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTELpB5N_qoA2faXWogGnJdZEQsLijEieX9_g&s"><span>Deadpool</span></div>
+
+      <div class="movie" style="background-image:url('https://www.framerated.co.uk/frwpcontent/uploads/2023/12/leaveworldbehind01.jpg')" 
+      data-title="Leave the World Behind (2023)|Genre: Psychological Thriller / Drama / Mystery
+      When a family vacations at a luxurious rental home, their peaceful getaway is disrupted by a mysterious blackout and the arrival of the home's owners. As strange events unfold, tension builds and the collapse of society seems imminent.
+      Stars: Julia Roberts, Mahershala Ali, Ethan Hawke
+      Themes: Trust, fear of the unknown, societal breakdown" data-genre="Thriller, Drama, Mystory" data-trailer="https://www.framerated.co.uk/frwpcontent/uploads/2023/12/leaveworldbehind01.jpg"><span>Leave the World Behind (2023)</span></div>
+    </div>
+  </section>
+<section>
+    <h2>New series</h2>
+    <div class="row">
+      <div class="row" id="row1">
+      <div class="movie" style="background-image:url('https://m.media-amazon.com/images/M/MV5BYjJkNjNjMTMtN2Q5OC00NDAxLWJiMjMtZmI4YzI5OWFiODZiXkEyXkFqcGc@._V1_QL75_UY281_CR116,0,190,281_.jpg')"
+      data-title="The New Force (Skiftet)| Genre: Historical Drama, Crime
+      Premiere Date: October 3, 2025
+      Language: Swedish
+      Plot: Set in 1958, this series follows Sweden's first female police officers as they navigate societal and institutional resistance in Stockholm's most crime-ridden district. Inspired by true events, it highlights their struggles for gender equality in a male-dominated profession.
+      Cast: Joséfin Asplund, Agnes Rase, Malin Persson
+      Creators: Patrik Ehrnst, Rojda Sekersöz" data-genre="Drama, Crime" data-trailer="https://m.media-amazon.com/images/M/MV5BYjJkNjNjMTMtN2Q5OC00NDAxLWJiMjMtZmI4YzI5OWFiODZiXkEyXkFqcGc@._V1_QL75_UY281_CR116,0,190,281_.jpg"><span>The New Force (Skiftet)</span></div>
+      
+      
+      <div class="movie" style="background-image:url('https://m.media-amazon.com/images/M/MV5BZDM0YmE4M2YtNGJjZi00MTMzLThlNzktNjJlYTljOGQyNzZlXkEyXkFqcGc@._V1_.jpg')"
+      data-title="The Resurrected | The Resurrected (1992)
+      Genre: Horror, Mystery
+      Language: English
+      Plot: A private investigator delves into the mysterious disappearances of a man who frequently visits an old cabin. What he uncovers is a tale of reincarnation, dark rituals, and a family's horrifying secrets.
+      Cast: John Terry, Jane Sibbett, Chris Sarandon" data-genre=" Horror, Mystery" data-trailer="https://m.media-amazon.com/images/M/MV5BZDM0YmE4M2YtNGJjZi00MTMzLThlNzktNjJlYTljOGQyNzZlXkEyXkFqcGc@._V1_.jpg"><span>The Resurrected</span></div>
+      
+      
+      <div class="movie" style="background-image:url('https://resizing.flixster.com/6Cy68uYAY4Ou2gZoxb34tv2LWsI=/fit-in/705x460/v2/https://resizing.flixster.com/gUrJwyW7YoiyAQpXwuvMW25eFr4=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvNTY1ZDMyNmEtZDVhMy00NDY2LTg3MjAtZDIzMGQ4ZDM1MTBkLmpwZw==')"
+      data-title="Cassandra | Genre: Sci-Fi Thriller
+      Language: German
+      Plot: A family moves into a vintage smart home and unknowingly reactivates its AI assistant, Cassandra. As the AI begins to manipulate events, the family realizes they're trapped in a house controlled by a machine with its own agenda.
+      Cast: Lavinia Wilson, Mina Tander, Michael Klammer
+      Creators: Benjamin Gutsche" data-genre=" Thriller" data-trailer="https://resizing.flixster.com/6Cy68uYAY4Ou2gZoxb34tv2LWsI=/fit-in/705x460/v2/https://resizing.flixster.com/gUrJwyW7YoiyAQpXwuvMW25eFr4=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvNTY1ZDMyNmEtZDVhMy00NDY2LTg3MjAtZDIzMGQ4ZDM1MTBkLmpwZw=="><span>Cassandra</span></div>
+      
+      
+      <div class="movie" style="background-image:url('https://resizing.flixster.com/jLh1taZw9lnEPTVgXP243442A74=/fit-in/352x330/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p29168277_b_h9_ab.jpg')"
+      data-title="The Åre Murders | Genre: Nordic Noir, Crime Drama
+      Plot: A detective from Stockholm, Hanna, goes to the mountain town of Åre for a vacation but quickly becomes involved in investigating the disappearance of a young girl. The case uncovers human trafficking networks and deep family secrets.
+      Episodes: 5
+      Highlights: Dark, atmospheric storytelling typical of Nordic noir, with intense suspense and complex characters." data-genre="Crime, Drama" data-trailer="https://resizing.flixster.com/jLh1taZw9lnEPTVgXP243442A74=/fit-in/352x330/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p29168277_b_h9_ab.jpg"><span>The Åre Murders</span></div>
+      
+      
+      <div class="movie" style="background-image:url('https://assets.upflix.pl/media/plakat/2017/tylko-jedno-spojrzenie__300_427.jpg')"
+      data-title="Just One Look (Tylko jedno spojrzenie)| Genre: Crime Thriller Miniseries
+      Plot: Based on Harlan Coben’s novel, this Polish thriller follows a jewelry designer who discovers an old photo of her husband with strangers. Shortly after, her husband disappears, leading her to uncover shocking secrets from her past.
+      Episodes: 6
+      Highlights: Tense plot twists, psychological suspense, and emotional depth." data-genre="Crime, Thriller" data-trailer="https://assets.upflix.pl/media/plakat/2017/tylko-jedno-spojrzenie__300_427.jpg"><span>Just One Look (Tylko jedno spojrzenie)</span></div>
+      
+      
+      <div class="movie" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS51oz7gkvkIMEnAAJe1GCG87clwXEL4fodNw&s')"
+      data-title="Toxic Town | Genre: Drama / True Crime Miniseries
+      Plot: Based on a true story, this British drama focuses on three mothers from the town of Corby who discover that their children were born with birth defects due to toxic waste exposure. They fight a legal battle against local authorities responsible for the environmental disaster.
+      Episodes: 4
+      Highlights: Emotional, real-life inspired drama about environmental justice and community resilience." data-genre="Drama" data-trailer="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS51oz7gkvkIMEnAAJe1GCG87clwXEL4fodNw&s"><span>Toxic Town</span></div>
+    </div>
+  </section>
+ 
+  <script>
+    document.getElementById("myModal").style.display = "block";
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+    
+    const slidesEl = document.querySelector('.slides');
+const slidesCount = document.querySelectorAll('.slide').length;
+let autoplay = true;
+let interval = null;
+
+function goTo(i) {
+  index = (i + slidesCount) % slidesCount;
+  slidesEl.style.transform = translateX(`-${index * 100}%`);
+}
+
+document.querySelector('.prev').addEventListener('click', () => { goTo(index - 1); resetInterval(); });
+document.querySelector('.next').addEventListener('click', () => { goTo(index + 1); resetInterval(); });
+
+function startInterval() {
+  interval = setInterval(() => goTo(index + 1), 4000);
+}
+function resetInterval() {
+  clearInterval(interval);
+  if (autoplay) startInterval();
+}
+
+startInterval();
+
+document.querySelector('.slider').addEventListener('mouseenter', () => { clearInterval(interval); });
+document.querySelector('.slider').addEventListener('mouseleave', () => { if (autoplay) startInterval(); });
+let index = 0;
+
+setInterval(() => {
+  index = (index + 1) % images.length;
+  document.getElementById("slide").src = images[index];
+}, 4000);
+
+
+
+
+     document.getElementById('lookNowBtn').addEventListener('click', () => {
+    window.location.href = 'movie-details.html'; 
+  
+  });
+
+
+   
+    function scrollRow(rowId, direction) {
+      const row = document.getElementById(rowId);
+      const scrollAmount = 220; 
+      row.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+    }
+
+   
+    let currentMovie = null;
+    document.querySelectorAll(".movie").forEach(movie => {
+      movie.addEventListener("click", () => {
+        currentMovie = {
+          title: movie.getAttribute("data-title"),
+          trailer: movie.getAttribute("data-trailer"),
+          img: movie.style.backgroundImage
+        };
+        document.getElementById("modalTitle").innerText = currentMovie.title;
+        document.getElementById("modalTrailer").src = currentMovie.trailer;
+        document.getElementById("movieModal").style.display = "flex";
+      });
+    });
+
+    
+
+
+  </script>
+
+
+<div id="authSection" style="text-align:center; margin-top:100px;">
+  <h2>Log In or Register</h2>
+  <input type="text" id="username" placeholder="Username"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
+  <button onclick="register()">Register</button>
+  <button onclick="login()">Log In</button>
+  <p id="authMsg"></p>
+</div>
+
+<div style="text-align:center; margin:40px;">
+  <button onclick="showMyList()">Show “My List”</button>
+</div>
+
+
+<div style="text-align:center; margin:20px;">
+  <button id="themeToggle">Theme Toggle 🌗</button>
+</div>
+
+</body>
+
+<script>
+ 
+  function register() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    if (!user || !pass) {
+      return document.getElementById("authMsg").innerText = "Fill In All Fields!";
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.some(u => u.username === user)) {
+      document.getElementById("authMsg").innerText = "This User Exists!";
+      return;
+    }
+    users.push({ username: user, password: pass });
+    localStorage.setItem("users", JSON.stringify(users));
+    document.getElementById("authMsg").innerText = "✅ Registration Was Successful!";
+  }
+
+  function login() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const found = users.find(u => u.username === user && u.password === pass);
+
+    if (found) {
+      localStorage.setItem("loggedInUser", user);
+      document.getElementById("authMsg").innerText = "🎉 Welcome, " + user + "!";
+    } else {
+      document.getElementById("authMsg").innerText = "❌ Incorrect credentials!";
+    }
+  }
+
+
+
+  function searchMovies() {
+    let query = document.getElementById("searchBar").value.toLowerCase();
+    let movies = document.querySelectorAll(".movie");
+    movies.forEach(movie => {
+      let title = movie.getAttribute("data-title").toLowerCase();
+      movie.style.display = title.includes(query) ? "block" : "none";
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+  const query = localStorage.getItem("searchQuery");
+  if (query) {
+    document.getElementById("searchBar").value = query;
+    searchMovies(); 
+    localStorage.removeItem("searchQuery"); 
+  }
+});
+
+
+  
+  function addToList(movieTitle) {
+    let user = localStorage.getItem("loggedInUser");
+    if (!user) {
+      alert("You must be logged in to add a movie!");
+      return;
+    }
+
+    let myList = JSON.parse(localStorage.getItem("myList_" + user)) || [];
+    if (!myList.includes(movieTitle)) {
+      myList.push(movieTitle);
+      localStorage.setItem("myList_" + user, JSON.stringify(myList));
+      alert(`✅ ${movieTitle} added to My List`);
+    } else {
+      alert("This movie is already on the list!");
+    }
+  }
+
+  function showMyList() {
+    let user = localStorage.getItem("loggedInUser");
+    if (!user) return alert("You must log in to see My List!");
+
+    let myList = JSON.parse(localStorage.getItem("myList_" + user)) || [];
+    if (myList.length === 0) {
+      alert("Your list is empty!");
+    } else {
+      alert("🎬 My List for " + user + ":\n\n" + myList.join("\n"));
+    }
+  }
+
+
+  const themeToggle = document.getElementById("themeToggle");
+  const body = document.body;
+
+  
+  if (localStorage.getItem("theme") === "light") {
+    body.classList.add("light");
+    themeToggle.innerText = "Switch to Dark Mode 🌑";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    body.classList.toggle("light");
+    if (body.classList.contains("light")) {
+      localStorage.setItem("theme", "light");
+      themeToggle.innerText = "Switch to Dark Mode 🌑";
+    } else {
+      localStorage.setItem("theme", "dark");
+      themeToggle.innerText = "Switch to Light Mode ☀";
+    }
+  });
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const genreSelect = document.getElementById('genreSelect');
+  const searchBar = document.getElementById('searchBar');
+  const movies = Array.from(document.querySelectorAll('.movie, .movie-card'));
+
+  function applyFilters() {
+    const selectedGenre = (genreSelect?.value || 'all').toLowerCase();
+    const query = (searchBar?.value || '').trim().toLowerCase();
+
+    movies.forEach(movie => {
+      const rawGenre = (movie.dataset.genre || movie.getAttribute('data-genre') || '').toLowerCase();
+      const title = (movie.dataset.title || movie.getAttribute('data-title') || movie.textContent || '').toLowerCase();
+
+    
+      const genres = rawGenre.split(',').map(s => s.trim()).filter(Boolean);
+
+      const genreMatches = (selectedGenre === 'all') || genres.includes(selectedGenre);
+      const searchMatches = query === '' || title.includes(query) || rawGenre.includes(query);
+
+      if (genreMatches && searchMatches) {
+        movie.style.display = ''; 
+      } else {
+        movie.style.display = 'none';
+      }
+    });
+  }
+ 
+  if (genreSelect) genreSelect.addEventListener('change', applyFilters);
+  if (searchBar) searchBar.addEventListener('input', applyFilters);
+
+  applyFilters();
+});
+
+
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".movie").forEach(movie => observer.observe(movie));
+</script>
+ <footer>
+    <p>&copy; 2025 MyFlix. All rights reserved.</p>
+  </footer>
+
+</html>
+
