@@ -29,16 +29,17 @@
   <div class="hero">
      <h2>Recommended movie of the day</h2>
         <button id="lookNowBtn">Look now</button>
- 
-  </div>
+       </div>
+
+
 </section>
- <div class="modal" id="movieModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modalTitle"></h2>
-      <iframe id="modalTrailer" src="" frameborder="0" allowfullscreen></iframe>
-      <button class="btn" onclick="addToList()">+ Add to My List</button>
-    </div>
+ <div id="movieModal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()" class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <iframe id="modalTrailer" src="" allowfullscreen style="width: 100%; height: 400px; border: none;"></iframe>
+    <button onclick="addToList()">+ Add to My List</button>
+  </div>
   </div>
 
 
@@ -57,7 +58,7 @@
     <option value="thriller">Thriller</option>
   </select>
 </div>
- 
+
 
   <section>
   <h2>Popular films</h2>
@@ -66,7 +67,6 @@
     <div class="row" id="row1">
       
       
-
       <div class="movie" style="background-image:url('https://www.hollywoodreporter.com/wp-content/uploads/2025/08/KPOP_mktg005_8KHigh_Lyrs_lm_v15-H-2025.jpg?w=1296')"
       data-title="KPop Demon Hunters (2025)| An animated action-fantasy film about a K-pop girl group who secretly fight demons while maintaining their glamorous pop star lives. Stylish, fun, and packed with supernatural action."
       data-genre="Action" data-trailer="https://www.hollywoodreporter.com/wp-content/uploads/2025/08/KPOP_mktg005_8KHigh_Lyrs_lm_v15-H-2025.jpg?w=1296" ><span>KPop Demon Hunters (2025)</span></div>
@@ -172,123 +172,134 @@
   </section>
  
   <script>
-    document.getElementById("myModal").style.display = "block";
-function openModal() {
-  document.getElementById("myModal").style.display = "block";
-}
-function closeModal() {
-  document.getElementById("myModal").style.display = "none";
-}
+  // Movie modal functionality
+  document.addEventListener("DOMContentLoaded", function() {
+  const movies = document.querySelectorAll(".movie");
 
-    
+  const modal = document.getElementById("movieModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalTrailer = document.getElementById("modalTrailer");
+
+  movies.forEach(movie => {
+    movie.addEventListener("click", () => {
+      const title = movie.getAttribute("data-title");
+      const trailer = movie.getAttribute("data-trailer");
+
+      modalTitle.textContent = title;
+      modalTrailer.src = trailer;
+
+      modal.style.display = "block";
+    });
+  });
+
+  window.closeModal = function() {
+    modal.style.display = "none";
+    modalTrailer.src = ""; // ndalon videon kur mbyllet
+  };
+
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+      modalTrailer.src = "";
+    }
+  };
+}); 
+
+    let myList = 
+    JSON.parse(localStorage.getItem("myList_" + user)) || [];
+    if (!myList.includes(movieTitle)) {
+      myList.push(movieTitle);
+      localStorage.setItem("myList_" + user, JSON.stringify(myList));
+      alert(`✅ ${movieTitle} added to My List`);
+    } else {
+      alert("This movie is already on the list!");
+    }
+  
+  // Slider functionality 
     const slidesEl = document.querySelector('.slides');
-const slidesCount = document.querySelectorAll('.slide').length;
-let autoplay = true;
-let interval = null;
+    const slidesCount = document.querySelectorAll('.slide').length;
+    let autoplay = true;
+    let interval = null;
+    let index = 0;
 
-function goTo(i) {
-  index = (i + slidesCount) % slidesCount;
-  slidesEl.style.transform = translateX(`-${index * 100}%`);
-}
+  function goTo(i) {
+    index = (i + slidesCount) % slidesCount;
+    slidesEl.style.transform = `translateX(-${index * 100}%)`;
+  }
 
-document.querySelector('.prev').addEventListener('click', () => { goTo(index - 1); resetInterval(); });
-document.querySelector('.next').addEventListener('click', () => { goTo(index + 1); resetInterval(); });
 
-function startInterval() {
-  interval = setInterval(() => goTo(index + 1), 4000);
-}
-function resetInterval() {
+  // Navigation buttons
+  document.querySelector('.prev').addEventListener('click', () => { goTo(index - 1); resetInterval(); });
+  document.querySelector('.next').addEventListener('click', () => { goTo(index + 1); resetInterval(); });
+  
+  // Autoplay functionality +4s
+  function startInterval() {
+    interval = setInterval(() => goTo(index + 1), 4000);
+  }
+  function resetInterval() {
   clearInterval(interval);
   if (autoplay) startInterval();
-}
+  }
+  startInterval();
 
-startInterval();
+  // Pause on hover
+  document.querySelector('.slider').addEventListener('mouseenter', () => { clearInterval(interval); });
+  document.querySelector('.slider').addEventListener('mouseleave', () => { if (autoplay) startInterval(); });
 
-document.querySelector('.slider').addEventListener('mouseenter', () => { clearInterval(interval); });
-document.querySelector('.slider').addEventListener('mouseleave', () => { if (autoplay) startInterval(); });
-let index = 0;
-
-setInterval(() => {
-  index = (index + 1) % images.length;
-  document.getElementById("slide").src = images[index];
-}, 4000);
-
-
-
-
-     document.getElementById('lookNowBtn').addEventListener('click', () => {
+  // Look Now button functionality
+    document.getElementById('lookNowBtn').addEventListener('click', () => {
     window.location.href = 'movie-details.html'; 
   
   });
 
 
-   
+   // Row scrolling functionality
     function scrollRow(rowId, direction) {
       const row = document.getElementById(rowId);
       const scrollAmount = 220; 
       row.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
     }
-
-   
-    let currentMovie = null;
-    document.querySelectorAll(".movie").forEach(movie => {
-      movie.addEventListener("click", () => {
-        currentMovie = {
-          title: movie.getAttribute("data-title"),
-          trailer: movie.getAttribute("data-trailer"),
-          img: movie.style.backgroundImage
-        };
-        document.getElementById("modalTitle").innerText = currentMovie.title;
-        document.getElementById("modalTrailer").src = currentMovie.trailer;
-        document.getElementById("movieModal").style.display = "flex";
-      });
-    });
-
-    
-
-
   </script>
 
+  <div id="authSection" style="text-align:center; margin-top:100px;">
+   <h2>Log In or Register</h2>
+   <input type="text" id="username" placeholder="Username"><br><br>
+   <input type="password" id="password" placeholder="Password"><br><br>
+     <button onclick="register()">Register</button>
+     <button onclick="login()">Log In</button>
+   <p id="authMsg"></p>
+  <button class="button"
+  onclick="window.location.href='MyList.html'">
+  Show My List
+  </button>
+  </div>
 
-<div id="authSection" style="text-align:center; margin-top:100px;">
-  <h2>Log In or Register</h2>
-  <input type="text" id="username" placeholder="Username"><br><br>
-  <input type="password" id="password" placeholder="Password"><br><br>
-  <button onclick="register()">Register</button>
-  <button onclick="login()">Log In</button>
-  <p id="authMsg"></p>
-</div>
 
-<div style="text-align:center; margin:40px;">
-  <button onclick="showMyList()">Show “My List”</button>
-</div>
-
-
-<div style="text-align:center; margin:20px;">
-  <button id="themeToggle">Theme Toggle 🌗</button>
-</div>
+  <div style="text-align:center; margin:20px;">
+    <button id="themeToggle">Theme Toggle 🌗</button>
+  </div>
 
 </body>
 
 <script>
- 
+ // User authentication functionality
   function register() {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
     if (!user || !pass) {
-      return document.getElementById("authMsg").innerText = "Fill In All Fields!";
+      return document.getElementById("authMsg").innerText = "Please fill in all fields!";
     }
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.some(u => u.username === user)) {
-      document.getElementById("authMsg").innerText = "This User Exists!";
-      return;
+      document.getElementById("authMsg").innerText = "This user alreay exists!";
     }
+
     users.push({ username: user, password: pass });
     localStorage.setItem("users", JSON.stringify(users));
-    document.getElementById("authMsg").innerText = "✅ Registration Was Successful!";
+    document.getElementById("authMsg").innerText = "✅ Registration successful!";
   }
-
+  // Login functionality
   function login() {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
@@ -297,14 +308,13 @@ setInterval(() => {
 
     if (found) {
       localStorage.setItem("loggedInUser", user);
-      document.getElementById("authMsg").innerText = "🎉 Welcome, " + user + "!";
+      document.getElementById("authMsg").innerText = `🎉 Welcome, ${user}!`;
     } else {
       document.getElementById("authMsg").innerText = "❌ Incorrect credentials!";
     }
   }
 
-
-
+  // Search functionality
   function searchMovies() {
     let query = document.getElementById("searchBar").value.toLowerCase();
     let movies = document.querySelectorAll(".movie");
@@ -314,25 +324,28 @@ setInterval(() => {
     });
   }
 
+  // Load search query from localStorage on page load
   window.addEventListener("DOMContentLoaded", () => {
   const query = localStorage.getItem("searchQuery");
   if (query) {
     document.getElementById("searchBar").value = query;
     searchMovies(); 
     localStorage.removeItem("searchQuery"); 
-  }
-});
+   }
+  });
 
-
-  
-  function addToList(movieTitle) {
+  // Add to My List functionality
+  function addToList() {
+    const movieTitle =
+    document.getElementById("modalTitle").innerText.split('|')[0].trim();
     let user = localStorage.getItem("loggedInUser");
     if (!user) {
       alert("You must be logged in to add a movie!");
       return;
     }
 
-    let myList = JSON.parse(localStorage.getItem("myList_" + user)) || [];
+    let myList = 
+    JSON.parse(localStorage.getItem("myList_" + user)) || [];
     if (!myList.includes(movieTitle)) {
       myList.push(movieTitle);
       localStorage.setItem("myList_" + user, JSON.stringify(myList));
@@ -342,6 +355,7 @@ setInterval(() => {
     }
   }
 
+  // Show My List functionality
   function showMyList() {
     let user = localStorage.getItem("loggedInUser");
     if (!user) return alert("You must log in to see My List!");
@@ -355,15 +369,16 @@ setInterval(() => {
   }
 
 
+  // Theme toggle functionality
   const themeToggle = document.getElementById("themeToggle");
   const body = document.body;
 
-  
+  // Load saved theme on page load
   if (localStorage.getItem("theme") === "light") {
     body.classList.add("light");
     themeToggle.innerText = "Switch to Dark Mode 🌑";
   }
-
+  // Toggle theme on button click
   themeToggle.addEventListener("click", () => {
     body.classList.toggle("light");
     if (body.classList.contains("light")) {
@@ -374,43 +389,44 @@ setInterval(() => {
       themeToggle.innerText = "Switch to Light Mode ☀";
     }
   });
-
-
+ 
+  // Genre filtering functionality
   document.addEventListener('DOMContentLoaded', () => {
   const genreSelect = document.getElementById('genreSelect');
   const searchBar = document.getElementById('searchBar');
   const movies = Array.from(document.querySelectorAll('.movie, .movie-card'));
 
-  function applyFilters() {
+  // Function to filter movies based on genre and search query
+    function applyFilters() {
     const selectedGenre = (genreSelect?.value || 'all').toLowerCase();
     const query = (searchBar?.value || '').trim().toLowerCase();
-
+  
+  // Loop through each movie and determine if it should be shown
     movies.forEach(movie => {
       const rawGenre = (movie.dataset.genre || movie.getAttribute('data-genre') || '').toLowerCase();
       const title = (movie.dataset.title || movie.getAttribute('data-title') || movie.textContent || '').toLowerCase();
-
-    
       const genres = rawGenre.split(',').map(s => s.trim()).filter(Boolean);
-
       const genreMatches = (selectedGenre === 'all') || genres.includes(selectedGenre);
       const searchMatches = query === '' || title.includes(query) || rawGenre.includes(query);
-
-      if (genreMatches && searchMatches) {
-        movie.style.display = ''; 
-      } else {
-        movie.style.display = 'none';
-      }
+   
+  // Show or hide the movie based on the filters
+  if (genreMatches && searchMatches) {
+    movie.style.display = ''; 
+    } else {
+      movie.style.display = 'none';
+     }
     });
   }
- 
+
+  // Event listeners for genre selection and search input
   if (genreSelect) genreSelect.addEventListener('change', applyFilters);
   if (searchBar) searchBar.addEventListener('input', applyFilters);
 
   applyFilters();
-});
+  });
 
 
-
+  // Scroll animation functionality
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -418,9 +434,10 @@ setInterval(() => {
       }
     });
   }, { threshold: 0.2 });
-
   document.querySelectorAll(".movie").forEach(movie => observer.observe(movie));
+
 </script>
+ 
  <footer>
     <p>&copy; 2025 MyFlix. All rights reserved.</p>
   </footer>

@@ -26,15 +26,23 @@
 </section>
 
 <script>
-  const container = document.getElementById('myListContainer');
-  const myList = JSON.parse(localStorage.getItem('myList')) || [];
+  const container = 
+  document.getElementById('myListContainer');
+  const user = localStorage.getItem('loggedInUser');
+  if (!user) {
+    container.innerHTML = "<p>Please log in to view your list.</p>";
+   
+  }
+  const myList = 
+  JSON.parse(localStorage.getItem('myList_' + user )) || [];
 
   if (myList.length === 0) {
     container.innerHTML = "<p>Your list is empty. Go to Home and add some movies!</p>";
   } else {
+
     myList.forEach(movie => {
-      const card = document.createElement('div');
-      card.classList.add('movie-card');
+      const card = document.createElement("div");
+      card.classList.add("movie-card");
       card.innerHTML = `
         <img src="${movie.img}" alt="${movie.title}">
         <p><strong>${movie.title}</strong></p>
@@ -47,9 +55,10 @@
  
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const title = btn.getAttribute('data-title');
-      let updatedList = myList.filter(movie => movie.title !== title);
-      localStorage.setItem('myList', JSON.stringify(updatedList));
+      const title = 
+      btn.getAttribute('data-title');
+      const updatedList = myList.filter(movie => movie.title !== title);
+      localStorage.setItem('myList_' + user , JSON.stringify(updatedList));
       location.reload();
     });
   });
